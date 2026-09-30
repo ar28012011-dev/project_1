@@ -1,0 +1,329 @@
+/* =========================================================
+   ОСНОВЫ CSS
+   Синтаксис:   селектор { свойство: значение; }
+   Пример:      h1 { color: red; }
+   Комментарии пишутся между знаками дроби и звёздочки
+   (звезда, дробь ... дробь, звезда) — они не видны на странице
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. ГЛОБАЛЬНЫЕ НАСТРОЙКИ
+   Селектор * выбирает ВСЕ элементы на странице
+   --------------------------------------------------------- */
+* {
+    margin: 0;          /* внешний отступ (по умолчанию у многих элементов) */
+    padding: 0;         /* внутренний отступ (расстояние от границы до текста) */
+    box-sizing: border-box; /* width/height включают padding и border */
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif; /* шрифт текста */
+    font-size: 16px;          /* размер текста */
+    line-height: 1.5;         /* межстрочный интервал (в размерах шрифта) */
+    color: #333;              /* цвет текста */
+    background-color: #f5f5f5;/* цвет фона страницы */
+    padding: 30px;            /* отступ содержимого от краёв окна */
+}
+
+
+/* ---------------------------------------------------------
+   2. ЗАГОЛОВКИ И ТЕКСТ
+   --------------------------------------------------------- */
+h1, h2, h3, h4 {           /* запятая = применить стиль сразу к нескольким */
+    color: #222;
+    margin-bottom: 12px;    /* отступ СНИЗУ элемента */
+}
+
+h1 {
+    font-size: 32px;        /* размер шрифта */
+    border-bottom: 2px solid #4a90e2; /* нижняя граница: толщина, тип, цвет */
+    padding-bottom: 8px;
+}
+
+h2 { font-size: 26px; }
+h3 { font-size: 20px; margin-top: 24px; }
+
+p {
+    margin-bottom: 12px;
+    max-width: 700px;       /* максимальная ширина — текст не будет слишком длинным */
+}
+
+/* Точка перед именем = класс (обращение по class="lead") */
+.lead {
+    font-size: 18px;
+    font-weight: bold;      /* жирность: normal | bold | 100...900 */
+    color: #4a90e2;
+}
+
+/* Ссылка. Двоеточное двоеточие — псевдокласс (состояние) */
+a {
+    color: #4a90e2;
+    text-decoration: none;  /* убираем подчёркивание */
+}
+
+a:hover {                   /* :hover — когда наводим мышкой */
+    text-decoration: underline;
+    color: #2c6cb0;
+}
+
+
+/* ---------------------------------------------------------
+   3. КНОПКИ
+   --------------------------------------------------------- */
+.btn {
+    display: inline-block;  /* блочный элемент, но встаёт в строку с другими */
+    padding: 10px 20px;     /* сверху/снизу 10px, слева/справа 20px */
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;           /* убираем стандартную рамку */
+    border-radius: 6px;     /* скругление углов */
+    font-size: 15px;
+    cursor: pointer;        /* курсор в виде руки */
+    margin: 4px 6px 4px 0;  /* верх право низ лево (по часовой) */
+    transition: background-color 0.2s; /* плавное изменение цвета за 0.2 сек */
+}
+
+.btn:hover {
+    background-color: #2c6cb0;  /* цвет при наведении */
+}
+
+/* Модификатор: класс btn + класс accent */
+.btn--accent {
+    background-color: #e26a4a;
+}
+
+.btn--accent:hover {
+    background-color: #b8502f;
+}
+
+
+/* ---------------------------------------------------------
+   4. ЦВЕТНОЙ БЛОК — БЛОЧНАЯ МОДЕЛЬ
+   Наглядно: content → padding → border → margin
+   --------------------------------------------------------- */
+.box {
+    width: 100%;            /* ширина */
+    max-width: 700px;
+    height: auto;           /* высота подстраивается под текст */
+    background-color: #dfeffb;/* фон */
+    color: #234;            /* цвет текста */
+    padding: 20px;          /* внутренний отступ (текст не прилипнет к краю) */
+    border: 2px dashed #4a90e2; /* рамка: толщина, стиль (dashed = пунктир), цвет */
+    border-radius: 8px;     /* скруглённые углы */
+    margin: 16px 0;         /* отступ снаружи сверху и снизу */
+}
+
+
+/* ---------------------------------------------------------
+   5. СПИСКИ
+   --------------------------------------------------------- */
+.list {
+    list-style-type: square; /* маркер: disc | circle | square | none */
+    padding-left: 22px;      /* сдвигаем маркеры вправо */
+}
+
+.list li {
+    margin-bottom: 6px;
+    color: #555;
+}
+
+/* li с :hover — подсветка при наведении */
+.list li:hover {
+    color: #e26a4a;
+    background-color: #ffe9e3;
+}
+
+
+/* ---------------------------------------------------------
+   6. ФОРМА (input, textarea)
+   --------------------------------------------------------- */
+.form {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 420px;
+    margin-bottom: 20px;
+}
+
+.form label {
+    display: block;         /* label занимает всю строку */
+    margin: 12px 0 4px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form input,
+.form textarea {            /* общие стили для обоих полей */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: inherit;   /* наследует шрифт от body */
+}
+
+.form textarea {
+    height: 80px;
+    resize: vertical;       /* разрешаем тянуть мышкой только по вертикали */
+}
+
+/* :focus — когда поле выбрано (в нём мигает курсор) */
+.form input:focus,
+.form textarea:focus {
+    outline: none;                  /* убираем стандартную обводку */
+    border-color: #4a90e2;          /* заменяем своей */
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2); /* мягкая тень вокруг */
+}
+
+
+/* ---------------------------------------------------------
+   7. ТАБЛИЦА
+   --------------------------------------------------------- */
+.table {
+    width: 100%;
+    max-width: 500px;
+    border-collapse: collapse;  /* убираем двойные рамки между ячейками */
+    background: #fff;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;     /* рамка вокруг каждой ячейки */
+    padding: 10px 12px;
+    text-align: left;           /* текст по левому краю */
+}
+
+.table th {
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+/* :nth-child(even) — каждая ЧЁТНАЯ строка (для «зебры») */
+.table tbody tr:nth-child(even) {
+    background-color: #f0f6fd;
+}
+
+
+/* ---------------------------------------------------------
+   8. FLEXBOX — главный инструмент раскладки
+   --------------------------------------------------------- */
+.flex-container {
+    display: flex;              /* превращаем контейнер в flex-контейнер */
+    justify-content: space-around; /* распределяем элементы: flex-start | center | space-between */
+    align-items: center;        /* выравнивание по ВЕРТИКАЛИ: flex-start | center | flex-end */
+    gap: 12px;                  /* расстояние между элементами */
+    flex-wrap: wrap;            /* разрешаем перенос на новую строку */
+    background: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 700px;
+    margin-bottom: 24px;
+}
+
+.flex-item {
+    flex: 1;                    /* элементы растягиваются и делят место поровну */
+    background-color: #4a90e2;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+
+/* ---------------------------------------------------------
+   9. КАРТОЧКИ — повторяющиеся блоки
+   --------------------------------------------------------- */
+.cards {
+    display: flex;              /* карточки идут в ряд */
+    gap: 20px;                  /* зазор между ними */
+    flex-wrap: wrap;            /* на узком экране переносятся вниз */
+    max-width: 700px;
+    margin-bottom: 24px;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;           /* обрезаем всё, что вылезает за углы */
+    width: 300px;               /* ширина карточки */
+    transition: transform 0.2s, box-shadow 0.2s; /* плавность при наведении */
+}
+
+.card:hover {
+    transform: translateY(-4px);  /* карточка приподнимается на 4px */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* тень снизу */
+}
+
+.card__image {                  /* двухподчёркивание = «элемент» внутри блока */
+    height: 140px;
+    background: linear-gradient(135deg, #4a90e2, #7bb8f0); /* градиент */
+}
+
+.card__image--green {           /* модификатор — другой градиент */
+    background: linear-gradient(135deg, #4ae290, #7bf0b8);
+}
+
+.card__body {
+    padding: 16px;
+}
+
+.card__title {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.card__text {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+
+/* ---------------------------------------------------------
+   10. НАВИГАЦИЯ (меню)
+   --------------------------------------------------------- */
+.nav {
+    display: flex;              /* ссылки встают в ряд */
+    gap: 4px;
+    background: #2c3e50;
+    padding: 8px;
+    border-radius: 8px;
+    max-width: 700px;
+}
+
+.nav__link {
+    color: #ecf0f1;             /* светлый текст на тёмном фоне */
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.nav__link:hover {
+    background-color: #3d566e;  /* подсветка пункта */
+}
+
+/* --active — модификатор: «текущий» пункт меню */
+.nav__link--active,
+.nav__link--active:hover {
+    background-color: #4a90e2;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+/* ---------------------------------------------------------
+   11. АДАПТИВНОСТЬ — разная вёрстка по ширине экрана
+   @media срабатывает, когда условие выполняется
+   --------------------------------------------------------- */
+@media (max-width: 600px) {     /* экран уже 600px */
+    body { padding: 14px; }
+
+    h1 { font-size: 26px; }
+
+    .flex-container { flex-direction: column; } /* элементы в столбик */
+    .cards { justify-content: center; }
+}

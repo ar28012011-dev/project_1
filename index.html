@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Основы CSS — простые элементы</title>
+
+    <!-- Подключаем файл стилей. Это основной способ применения CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ============ 1. ЗАГОЛОВОК И ТЕКСТ ============ -->
+    <h1>Заголовок первого уровня (h1)</h1>
+    <h2>Заголовок второго уровня (h2)</h2>
+
+    <p class="lead">Это абзац с классом <b>lead</b> — к нему применяются особые стили.</p>
+
+    <p>
+        Обычный текст. Здесь есть <b>жирный текст</b>, <i>курсив</i>
+        и <a href="#">ссылка</a>.
+    </p>
+
+    <!-- ============ 2. КНОПКА ============ -->
+    <button class="btn">Простая кнопка</button>
+    <button class="btn btn--accent">Акцентная кнопка</button>
+
+    <!-- ============ 3. ЦВЕТНОЙ БЛОК (div) ============ -->
+    <div class="box">
+        Блок div — прямоугольная область. Свойства width, height,
+        background-color и padding задают его внешний вид.
+    </div>
+
+    <!-- ============ 4. СПИСКИ ============ -->
+    <h3>Неупорядоченный список (ul)</h3>
+    <ul class="list">
+        <li>Первый пункт</li>
+        <li>Второй пункт</li>
+        <li>Третий пункт</li>
+    </ul>
+
+    <h3>Упорядоченный список (ol)</h3>
+    <ol>
+        <li>Первый шаг</li>
+        <li>Второй шаг</li>
+    </ol>
+
+    <!-- ============ 5. ФОРМА ============ -->
+    <h3>Форма</h3>
+    <form class="form">
+        <label for="name">Имя:</label>
+        <!-- placeholder — серая подсказка внутри поля -->
+        <input type="text" id="name" placeholder="Введите имя">
+
+        <label for="msg">Сообщение:</label>
+        <textarea id="msg" placeholder="Ваше сообщение"></textarea>
+
+        <button type="submit" class="btn btn--accent">Отправить</button>
+    </form>
+
+    <!-- ============ 6. ТАБЛИЦА ============ -->
+    <h3>Таблица (table)</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Элемент</th>
+                <th>Назначение</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>selector</td>
+                <td>выбирает элемент</td>
+            </tr>
+            <tr>
+                <td>property</td>
+                <td>свойство (цвет, размер...)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ============ 7. ГИБКАЯ РАССТАНОВКА (FLEXBOX) ============ -->
+    <h3>Flexbox — выравнивание в ряд</h3>
+    <div class="flex-container">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+    </div>
+
+    <!-- ============ 8. КАРТОЧКИ (карточный макет) ============ -->
+    <h3>Карточки</h3>
+    <div class="cards">
+        <div class="card">
+            <div class="card__image"></div>
+            <div class="card__body">
+                <h4 class="card__title">Название</h4>
+                <p class="card__text">Короткое описание карточки.</p>
+                <a href="#" class="btn">Подробнее</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card__image card__image--green"></div>
+            <div class="card__body">
+                <h4 class="card__title">Название</h4>
+                <p class="card__text">Вторая карточка для наглядности.</p>
+                <a href="#" class="btn">Подробнее</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ 9. НАВИГАЦИЯ (меню) ============ -->
+    <h3>Навигация</h3>
+    <nav class="nav">
+        <a href="#" class="nav__link">Главная</a>
+        <a href="#" class="nav__link">О нас</a>
+        <a href="#" class="nav__link nav__link--active">Услуги</a>
+        <a href="#" class="nav__link">Контакты</a>
+    </nav>
+
+</body>
+</html>
