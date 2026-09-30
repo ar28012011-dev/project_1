@@ -7,8 +7,52 @@
 
     <!-- Подключаем файл стилей. Это основной способ применения CSS -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Рукописный шрифт (для неоновой темы). Если интернета нет —
+         браузер возьмёт системный рукописный шрифт из font-family -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Подключаем скрипт переключения тем. defer = выполнить после разметки -->
+    <script src="script.js" defer></script>
 </head>
 <body>
+
+    <!-- ============ 0. ВЫБОР ТЕМЫ ============ -->
+    <!-- data-theme на <html> меняется скриптом: light | dark | neon -->
+    <div class="themes">
+        <span class="themes__title">Тема:</span>
+
+        <!-- Кнопки выбора темы. Активная получает класс .is-active -->
+        <button class="themes__btn is-active" data-theme-btn="light">Светлая</button>
+        <button class="themes__btn" data-theme-btn="dark">Тёмная</button>
+        <button class="themes__btn" data-theme-btn="neon">Неон</button>
+
+        <!-- Меню неоновых цветов. Показывается только в неоновой теме
+             (у него класс .is-visible, добавляет скрипт) -->
+        <div class="neon-menu" id="neonMenu">
+            <span class="neon-menu__title">Цвет неона:</span>
+
+            <!-- Каждая кнопка несёт свой цвет в data-color -->
+            <button class="neon-menu__swatch" data-color="#39ff14"
+                    style="--swatch:#39ff14" title="Зелёный"></button>
+            <button class="neon-menu__swatch" data-color="#ff2fb9"
+                    style="--swatch:#ff2fb9" title="Розовый"></button>
+            <button class="neon-menu__swatch" data-color="#00f0ff"
+                    style="--swatch:#00f0ff" title="Голубой"></button>
+            <button class="neon-menu__swatch" data-color="#bf00ff"
+                    style="--swatch:#bf00ff" title="Фиолетовый"></button>
+            <button class="neon-menu__swatch" data-color="#ff9900"
+                    style="--swatch:#ff9900" title="Оранжевый"></button>
+            <button class="neon-menu__swatch" data-color="#ffff33"
+                    style="--swatch:#ffff33" title="Жёлтый"></button>
+
+            <!-- Свой цвет из палитры браузера -->
+            <input type="color" id="neonCustom" class="neon-menu__input"
+                   value="#39ff14" title="Свой цвет">
+        </div>
+    </div>
 
     <!-- ============ 1. ЗАГОЛОВОК И ТЕКСТ ============ -->
     <h1>Заголовок первого уровня (h1)</h1>

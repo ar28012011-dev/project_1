@@ -8,6 +8,92 @@
 
 
 /* ---------------------------------------------------------
+   0. ПЕРЕМЕННЫЕ ЦВЕТА (--имя: значение)
+   Одна переменная — много мест применения.
+   Здесь задана СВЕТЛАЯ ТЕМА (значения по умолчанию).
+   Переменная подставляется так: var(--accent)
+   --------------------------------------------------------- */
+:root {
+    --bg: #f5f5f5;             /* фон страницы */
+    --bg-card: #fff;           /* фон карточек, формы, таблицы */
+    --bg-soft: #dfeffb;        /* светлый фон блока */
+    --text: #333;              /* основной текст */
+    --text-heading: #222;      /* заголовки */
+    --text-muted: #666;        /* приглушённый текст */
+    --accent: #4a90e2;         /* акцентный цвет (ссылки, кнопки) */
+    --accent-hover: #2c6cb0;   /* акцент при наведении */
+    --accent-2: #e26a4a;       /* второй акцент (кнопка accent) */
+    --accent-2-hover: #b8502f;
+    --border: #ddd;            /* границы */
+    --stripe: #f0f6fd;         /* чётная строка таблицы */
+    --list-hover: #ffe9e3;     /* подсветка пункта списка */
+    --nav-bg: #2c3e50;         /* фон навигации */
+    --nav-hover: #3d566e;
+    --shadow: rgba(0, 0, 0, 0.12);
+    --glow: none;              /* свечение (есть только в неоне) */
+    --font-body: Arial, Helvetica, sans-serif;
+}
+
+
+/* ---------------------------------------------------------
+   ТЕМА 1. ТЁМНАЯ
+   Атрибут data-theme="dark" вешается скриптом на <html>.
+   Селектор: html[data-theme="dark"]
+   --------------------------------------------------------- */
+html[data-theme="dark"] {
+    --bg: #1b1d23;
+    --bg-card: #262932;
+    --bg-soft: #2f3542;
+    --text: #d5d8e0;
+    --text-heading: #ffffff;
+    --text-muted: #9aa0ad;
+    --accent: #6aa9f4;
+    --accent-hover: #93c2f8;
+    --accent-2: #f08a6a;
+    --accent-2-hover: #f5a88f;
+    --border: #3a3f4b;
+    --stripe: #2b2f39;
+    --list-hover: #3a2f2c;
+    --nav-bg: #12141a;
+    --nav-hover: #2b303c;
+    --shadow: rgba(0, 0, 0, 0.5);
+}
+
+
+/* ---------------------------------------------------------
+   ТЕМА 2. НЕОН
+   Тёмный фон + свечение акцентного цвета (--neon его хранит).
+   Рукописный шрифт — задан здесь для всего текста.
+   --------------------------------------------------------- */
+html[data-theme="neon"] {
+    --bg: #07070d;             /* почти чёрный фон */
+    --bg-card: #0d0d17;
+    --bg-soft: #101020;
+    --text: #e8e8ff;
+    --text-heading: #ffffff;
+    --text-muted: #a9a9d0;
+    --accent: var(--neon);     /* цвет выбирает пользователь */
+    --accent-hover: var(--neon);
+    --accent-2: var(--neon);
+    --accent-2-hover: var(--neon);
+    --border: var(--neon);
+    --stripe: #12121f;
+    --list-hover: #16162a;
+    --nav-bg: #0b0b14;
+    --nav-hover: #171728;
+    --shadow: var(--neon);
+    --glow: 0 0 10px var(--neon), 0 0 25px var(--neon); /* свечение элементов */
+
+    /* Рукописный шрифт: сначала Google-шрифт Caveat,
+       если не загрузился — системные рукописные */
+    --font-body: "Caveat", "Segoe Script", "Comic Sans MS", cursive;
+
+    /* Приглушённый вариант выбранного неона (прозрачность через rgba) */
+    --neon-soft: color-mix(in srgb, var(--neon) 25%, transparent);
+}
+
+
+/* ---------------------------------------------------------
    1. ГЛОБАЛЬНЫЕ НАСТРОЙКИ
    Селектор * выбирает ВСЕ элементы на странице
    --------------------------------------------------------- */
@@ -18,12 +104,111 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif; /* шрифт текста */
+    font-family: var(--font-body);   /* шрифт из текущей темы */
     font-size: 16px;          /* размер текста */
     line-height: 1.5;         /* межстрочный интервал (в размерах шрифта) */
-    color: #333;              /* цвет текста */
-    background-color: #f5f5f5;/* цвет фона страницы */
+    color: var(--text);              /* цвет текста */
+    background-color: var(--bg);     /* цвет фона страницы */
     padding: 30px;            /* отступ содержимого от краёв окна */
+    transition: background-color 0.3s, color 0.3s; /* плавная смена темы */
+}
+
+
+/* ---------------------------------------------------------
+   0.1 ПАНЕЛЬ ТЕМ (кнопки + меню неоновых цветов)
+   --------------------------------------------------------- */
+.themes {
+    display: flex;              /* элементы в ряд */
+    align-items: center;        /* выравнивание по центру по вертикали */
+    flex-wrap: wrap;            /* перенос строк на узком экране */
+    gap: 8px;                   /* зазор между элементами */
+    padding: 12px;
+    margin-bottom: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: var(--glow);    /* в неоне — свечение панели */
+}
+
+.themes__title {
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+.themes__btn {
+    padding: 8px 16px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.themes__btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* .is-active — выбранная тема */
+.themes__btn.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    box-shadow: var(--glow);
+}
+
+/* Меню неоновых цветов: скрыто, пока не добавлен .is-visible */
+.neon-menu {
+    display: none;              /* по умолчанию не показываем */
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    margin-left: auto;          /* прижимаем вправо */
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+}
+
+.neon-menu.is-visible {
+    display: flex;              /* показываем, когда включена неоновая тема */
+}
+
+.neon-menu__title {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* Кружок-образец цвета */
+.neon-menu__swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--swatch);          /* цвет из атрибута style */
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+.neon-menu__swatch:hover {
+    transform: scale(1.2);              /* увеличиваем при наведении */
+}
+
+.neon-menu__swatch.is-active {
+    border-color: #fff;
+    transform: scale(1.15);
+    box-shadow: 0 0 10px var(--swatch); /* свечение выбранного цвета */
+}
+
+/* Поле выбора своего цвета */
+.neon-menu__input {
+    width: 32px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid var(--border);
+    background: none;
+    cursor: pointer;
 }
 
 
@@ -31,13 +216,14 @@ body {
    2. ЗАГОЛОВКИ И ТЕКСТ
    --------------------------------------------------------- */
 h1, h2, h3, h4 {           /* запятая = применить стиль сразу к нескольким */
-    color: #222;
+    color: var(--text-heading);
     margin-bottom: 12px;    /* отступ СНИЗУ элемента */
+    text-shadow: var(--glow);/* в неоне заголовки светятся */
 }
 
 h1 {
     font-size: 32px;        /* размер шрифта */
-    border-bottom: 2px solid #4a90e2; /* нижняя граница: толщина, тип, цвет */
+    border-bottom: 2px solid var(--accent); /* нижняя граница: толщина, тип, цвет */
     padding-bottom: 8px;
 }
 
@@ -53,18 +239,18 @@ p {
 .lead {
     font-size: 18px;
     font-weight: bold;      /* жирность: normal | bold | 100...900 */
-    color: #4a90e2;
+    color: var(--accent);
 }
 
 /* Ссылка. Двоеточное двоеточие — псевдокласс (состояние) */
 a {
-    color: #4a90e2;
+    color: var(--accent);
     text-decoration: none;  /* убираем подчёркивание */
 }
 
 a:hover {                   /* :hover — когда наводим мышкой */
     text-decoration: underline;
-    color: #2c6cb0;
+    color: var(--accent-hover);
 }
 
 
@@ -74,27 +260,29 @@ a:hover {                   /* :hover — когда наводим мышкой
 .btn {
     display: inline-block;  /* блочный элемент, но встаёт в строку с другими */
     padding: 10px 20px;     /* сверху/снизу 10px, слева/справа 20px */
-    background-color: #4a90e2;
+    background-color: var(--accent);
     color: #fff;
     border: none;           /* убираем стандартную рамку */
     border-radius: 6px;     /* скругление углов */
     font-size: 15px;
+    font-family: inherit;
     cursor: pointer;        /* курсор в виде руки */
     margin: 4px 6px 4px 0;  /* верх право низ лево (по часовой) */
-    transition: background-color 0.2s; /* плавное изменение цвета за 0.2 сек */
+    transition: background-color 0.2s, box-shadow 0.2s;
+    box-shadow: var(--glow);/* в неоне кнопки светятся */
 }
 
 .btn:hover {
-    background-color: #2c6cb0;  /* цвет при наведении */
+    background-color: var(--accent-hover);  /* цвет при наведении */
 }
 
 /* Модификатор: класс btn + класс accent */
 .btn--accent {
-    background-color: #e26a4a;
+    background-color: var(--accent-2);
 }
 
 .btn--accent:hover {
-    background-color: #b8502f;
+    background-color: var(--accent-2-hover);
 }
 
 
@@ -106,10 +294,10 @@ a:hover {                   /* :hover — когда наводим мышкой
     width: 100%;            /* ширина */
     max-width: 700px;
     height: auto;           /* высота подстраивается под текст */
-    background-color: #dfeffb;/* фон */
-    color: #234;            /* цвет текста */
+    background-color: var(--bg-soft);/* фон */
+    color: var(--text);            /* цвет текста */
     padding: 20px;          /* внутренний отступ (текст не прилипнет к краю) */
-    border: 2px dashed #4a90e2; /* рамка: толщина, стиль (dashed = пунктир), цвет */
+    border: 2px dashed var(--accent); /* рамка: толщина, стиль (dashed = пунктир), цвет */
     border-radius: 8px;     /* скруглённые углы */
     margin: 16px 0;         /* отступ снаружи сверху и снизу */
 }
@@ -125,13 +313,15 @@ a:hover {                   /* :hover — когда наводим мышкой
 
 .list li {
     margin-bottom: 6px;
-    color: #555;
+    color: var(--text-muted);
+    padding: 2px 6px;        /* место для подсветки */
+    border-radius: 4px;
 }
 
 /* li с :hover — подсветка при наведении */
 .list li:hover {
-    color: #e26a4a;
-    background-color: #ffe9e3;
+    color: var(--accent-2);
+    background-color: var(--list-hover);
 }
 
 
@@ -139,12 +329,13 @@ a:hover {                   /* :hover — когда наводим мышкой
    6. ФОРМА (input, textarea)
    --------------------------------------------------------- */
 .form {
-    background: #fff;
-    border: 1px solid #ddd;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 20px;
     max-width: 420px;
     margin-bottom: 20px;
+    box-shadow: var(--glow);
 }
 
 .form label {
@@ -158,10 +349,12 @@ a:hover {                   /* :hover — когда наводим мышкой
 .form textarea {            /* общие стили для обоих полей */
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 5px;
     font-size: 15px;
-    font-family: inherit;   /* наследует шрифт от body */
+    font-family: inherit;   /* наследует шрифт от темы */
+    background: var(--bg);
+    color: var(--text);
 }
 
 .form textarea {
@@ -173,8 +366,8 @@ a:hover {                   /* :hover — когда наводим мышкой
 .form input:focus,
 .form textarea:focus {
     outline: none;                  /* убираем стандартную обводку */
-    border-color: #4a90e2;          /* заменяем своей */
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2); /* мягкая тень вокруг */
+    border-color: var(--accent);    /* заменяем своей */
+    box-shadow: 0 0 0 3px var(--neon-soft, rgba(74, 144, 226, 0.2));
 }
 
 
@@ -185,24 +378,25 @@ a:hover {                   /* :hover — когда наводим мышкой
     width: 100%;
     max-width: 500px;
     border-collapse: collapse;  /* убираем двойные рамки между ячейками */
-    background: #fff;
+    background: var(--bg-card);
 }
 
 .table th,
 .table td {
-    border: 1px solid #ddd;     /* рамка вокруг каждой ячейки */
+    border: 1px solid var(--border); /* рамка вокруг каждой ячейки */
     padding: 10px 12px;
     text-align: left;           /* текст по левому краю */
+    color: var(--text);
 }
 
 .table th {
-    background-color: #4a90e2;
+    background-color: var(--accent);
     color: #fff;
 }
 
 /* :nth-child(even) — каждая ЧЁТНАЯ строка (для «зебры») */
 .table tbody tr:nth-child(even) {
-    background-color: #f0f6fd;
+    background-color: var(--stripe);
 }
 
 
@@ -215,16 +409,17 @@ a:hover {                   /* :hover — когда наводим мышкой
     align-items: center;        /* выравнивание по ВЕРТИКАЛИ: flex-start | center | flex-end */
     gap: 12px;                  /* расстояние между элементами */
     flex-wrap: wrap;            /* разрешаем перенос на новую строку */
-    background: #fff;
+    background: var(--bg-card);
     padding: 16px;
     border-radius: 8px;
     max-width: 700px;
     margin-bottom: 24px;
+    box-shadow: var(--glow);
 }
 
 .flex-item {
     flex: 1;                    /* элементы растягиваются и делят место поровну */
-    background-color: #4a90e2;
+    background-color: var(--accent);
     color: #fff;
     text-align: center;
     padding: 20px;
@@ -245,8 +440,8 @@ a:hover {                   /* :hover — когда наводим мышкой
 }
 
 .card {
-    background: #fff;
-    border: 1px solid #e0e0e0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     border-radius: 10px;
     overflow: hidden;           /* обрезаем всё, что вылезает за углы */
     width: 300px;               /* ширина карточки */
@@ -255,12 +450,12 @@ a:hover {                   /* :hover — когда наводим мышкой
 
 .card:hover {
     transform: translateY(-4px);  /* карточка приподнимается на 4px */
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* тень снизу */
+    box-shadow: 0 6px 16px var(--shadow); /* тень снизу */
 }
 
 .card__image {                  /* двухподчёркивание = «элемент» внутри блока */
     height: 140px;
-    background: linear-gradient(135deg, #4a90e2, #7bb8f0); /* градиент */
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover)); /* градиент */
 }
 
 .card__image--green {           /* модификатор — другой градиент */
@@ -274,10 +469,11 @@ a:hover {                   /* :hover — когда наводим мышкой
 .card__title {
     font-size: 18px;
     margin-bottom: 8px;
+    color: var(--text-heading);
 }
 
 .card__text {
-    color: #666;
+    color: var(--text-muted);
     font-size: 14px;
     margin-bottom: 14px;
 }
@@ -289,10 +485,12 @@ a:hover {                   /* :hover — когда наводим мышкой
 .nav {
     display: flex;              /* ссылки встают в ряд */
     gap: 4px;
-    background: #2c3e50;
+    flex-wrap: wrap;
+    background: var(--nav-bg);
     padding: 8px;
     border-radius: 8px;
     max-width: 700px;
+    box-shadow: var(--glow);
 }
 
 .nav__link {
@@ -303,13 +501,13 @@ a:hover {                   /* :hover — когда наводим мышкой
 }
 
 .nav__link:hover {
-    background-color: #3d566e;  /* подсветка пункта */
+    background-color: var(--nav-hover);  /* подсветка пункта */
 }
 
 /* --active — модификатор: «текущий» пункт меню */
 .nav__link--active,
 .nav__link--active:hover {
-    background-color: #4a90e2;
+    background-color: var(--accent);
     color: #fff;
     font-weight: bold;
 }
@@ -326,4 +524,6 @@ a:hover {                   /* :hover — когда наводим мышкой
 
     .flex-container { flex-direction: column; } /* элементы в столбик */
     .cards { justify-content: center; }
+
+    .neon-menu { margin-left: 0; } /* меню цветов уходит на свою строку */
 }
